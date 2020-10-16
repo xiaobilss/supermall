@@ -1,11 +1,22 @@
 <template>
-  <div>11111</div>
+  <div>
+    <nav-bar class="home-nav">
+      <div slot="center">购物车</div>
+    </nav-bar>
+  </div>
 </template>
 <script>
-export default {
+import NavBar from "components/common/navBar/NavBar.vue"
 
+export default {
+  components:{
+    NavBar
+  }
 }
 </script>
 <style scoped>
-
+.home-nav{
+  background-color: pink;
+  color: #fff;
+}
 </style>
