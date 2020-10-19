@@ -1,5 +1,6 @@
 import axios from "axios"
-const URL = "http://123.207.32.32:8000/"
+// const URL = "http://123.207.32.32:8000/"
+const URL ="http://152.136.185.210:8000/api/w6"
 
 export function request(config) {
   const instance = axios.create({

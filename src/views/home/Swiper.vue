@@ -1,56 +1,40 @@
 <template>
-  <!-- <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white">
-      <van-swipe-item v-for="(item, index) in banner" :key="index">
-        <img v-lazy="item.image" />
-      </van-swipe-item>
-    </van-swipe> -->
-
-  <van-swipe
-    class="my-swipe"
-    :autoplay="3000"
-    :duration="1500"
-    indicator-color="1989fa"
-    show-indicators
-  >
-    <van-swipe-item v-for="(item, index) in banner" :key="index">
+  <swiper ref="swiper" v-if="banners.length">
+    <swiper-item v-for="(item, index) in banners" :key="index">
       <a :href="item.link">
-        <img v-lazy="item.image" />
+        <img :src="item.image" alt="">
       </a>
-    </van-swipe-item>
-  </van-swipe>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
-export default {
-  name: "HomeSwiper",
-  props: {
-    banner: {
-      type: Array,
-      default() {
-        return [];
+  import {Swiper, SwiperItem} from 'components/common/swiper'
+
+	export default {
+    components: {
+		  Swiper,
+      SwiperItem
+    },
+    props: {
+		  banners: {
+		    type: Array,
+        default: []
+      }
+    },
+    methods: {
+		  stopTimer() {
+		    this.$refs.swiper.stopTimer()
+      },
+      startTimer() {
+		    if (this.$refs.swiper) {
+          this.$refs.swiper.startTimer()
+        }
       }
     }
-  },
-  data() {
-    return {
-      current: 0
-    };
-  }
-};
+	}
 </script>
 
 <style scoped>
-.van-swipe {
-  width: 100vw;
-  height: 3.9rem;
-}
-.van-swipe-item {
-  width: 100%;
-  height: 100%;
-  float: left;
-}
-img {
-  width: 100%;
-  height: 100%;
-}
+
 </style>
