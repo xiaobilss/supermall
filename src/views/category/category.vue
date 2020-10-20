@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div id="wrapper">
     <ul class="content">
       <li>分类列表1</li>
       <li>分类列表2</li>
@@ -105,24 +105,29 @@
   </div>
 </template>
 <script>
- import BScroll from 'better-scroll'
-export default {
-  data(){
-    return{
-        scroll:null
-    }
-  },
-  mounted(){
-    this.scroll=new BScroll(document.querySelector(".wrapper"),{
-      movable: true,
-  zoom: true
-    })
-  }
+import BScroll from "better-scroll";
 
-}
+export default {
+  data() {
+    return {
+      scroll: null
+    };
+  },
+  mounted() {
+    this.scroll = new BScroll(document.getElementById("wrapper"), {
+      probeType: 3,
+      pullUpLoad: true
+      // movable: true,
+      // zoom: true
+    });
+    this.scroll.on("pullingUp", () => {
+      console.log("上拉加载更多");
+    });
+  }
+};
 </script>
 <style scoped>
-ul{
+ul {
   height: 300px;
   background-color: red;
   overflow: hidden;
