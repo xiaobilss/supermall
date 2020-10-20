@@ -7,20 +7,21 @@
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommneds="recommends"></recommend-view>
     <feature-view></feature-view>
-    <tab-control :titles="titles"/>
-     <feature-view></feature-view>
-     <feature-view></feature-view>
-     <feature-view></feature-view>
-     <feature-view></feature-view>
-     <feature-view></feature-view>
+    <tab-control :titles="titles" @tabClick="tabClcik"/>
+    <goods-list :goods="goods[goodsTitle].list" />
   </div>
 </template>
 <script>
 import NavBar from "components/common/navBar/NavBar.vue";
+
 import TabControl from "components/content/tabControl/TabControl.vue"
+import GoodsList from "components/content/goods/GoodsList.vue"
+
 import HomeSwiper from "./Swiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView.vue";
+
+
 
 import { getHomeMultidata ,getHomeGoods} from "network/home.js";
 
@@ -30,6 +31,7 @@ export default {
       banners: [],
       recommends: [],
       titles:[],
+      goodsTitle:"pop",
       goods:{
         pop:{page:0,list:[]},
         new:{page:0,list:[]},
@@ -42,7 +44,13 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
+  },
+  computed:{
+    getGoodsListTitle(){
+      return goods[goodsTitle].list;
+    }
   },
   created() {
     // 轮播,主功能
@@ -74,6 +82,21 @@ export default {
         })
 
       })
+    },
+    tabClcik(index){
+        this.index=index;
+       switch(index){
+         case 0:
+            this.goodsTitle="pop";
+          break;
+          case 1:
+            this.goodsTitle="new";
+          break;
+          case 2:
+            this.goodsTitle="sell";
+          break;
+       }
+
     }
   }
 };
@@ -101,5 +124,6 @@ export default {
 .tab-control{
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 </style>
